@@ -1,6 +1,15 @@
 [phases.setup]
-nixPkgs = ["nodejs", "python3", "python311Packages.pip"]
+nixPkgs = ["nodejs_22", "python311", "gcc"]
+
+[phases.install]
+cmds = [
+  "npm install",
+  "python3 -m venv /opt/venv",
+  "/opt/venv/bin/pip install --upgrade pip"
+]
+
 [phases.build]
-cmds = ["npm install"]
+cmds = ["npm run build"]
+
 [start]
-cmd = "npm start"
+cmd = "node scripts/run-node.mjs"
