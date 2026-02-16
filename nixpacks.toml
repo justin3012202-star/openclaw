@@ -2,14 +2,11 @@
 nixPkgs = ["nodejs_22", "python311", "gcc"]
 
 [phases.install]
-cmds = [
-  "npm install",
-  "python3 -m venv /opt/venv",
-  "/opt/venv/bin/pip install --upgrade pip"
-]
+cmds = ["npm install"]
 
 [phases.build]
 cmds = ["npm run build"]
 
 [start]
-cmd = "node scripts/run-node.mjs"
+# 強制在啟動前刪除舊設定，並鎖定 MiniMax 啟動
+cmd = "rm -rf /root/.openclaw/agents/main && node scripts/run-node.mjs --provider minimax --model minimax/abab6.5s-chat"
